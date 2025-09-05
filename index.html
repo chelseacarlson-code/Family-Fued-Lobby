@@ -48,7 +48,7 @@
   <div class="container">
     <div>
       <h1>Family Feud — Player Onboarding</h1>
-      <div class="sub">Room <span id="room" style="font-family:monospace;font-weight:600"></span> • Capacity <span id="capCount">0</span>/25 • Session 30 minutes</div>
+      <div class="sub">Room <span id="room" style="font-family:monospace;font-weight:600"></span> • Capacity <span id="capCount">0</span>/30 • Session 30 minutes</div>
     </div>
     <div class="topbar">
       <div class="space">
@@ -96,7 +96,7 @@
           </form>
           <div style="margin-top:12px">
             <div class="flex" style="justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px">
-              <span>Capacity</span><span><span id="capNow">0</span> / 25</span>
+              <span>Capacity</span><span><span id="capNow">0</span> / 30</span>
             </div>
             <div class="progress"><div id="capBar"></div></div>
             <div id="lockNote" class="muted hidden" style="margin-top:6px;color:#b45309">Signups are locked or lobby is full.</div>
@@ -150,7 +150,7 @@
       <div class="hd"><h2>Facilitator Notes</h2></div>
       <div class="bd">
         <ul class="muted">
-          <li>Max 25 participants enforced; lock signups once you’re ready.</li>
+          <li>Max 30 participants enforced; lock signups once you’re ready.</li>
           <li>QR/link opens this lobby with the current room code so late arrivals can join.</li>
           <li>Roster & settings persist locally in the browser (no server). Export CSV to save.</li>
           <li>To add buzzing/answers, connect to a backend later (Firebase/Supabase).</li>
@@ -161,7 +161,7 @@
 
 <script>
 (function() {
-  const MAX = 25, DURATION = 30 * 60; // seconds
+  const MAX = 30, DURATION = 30 * 60; // seconds
   // --- util ---
   const $ = (q) => document.querySelector(q);
   const $on = (el, ev, fn) => el.addEventListener(ev, fn);
@@ -247,7 +247,7 @@
 
   function renderRoster() {
     capCount.textContent = players.length; capNow.textContent = players.length;
-    capBar.style.width = Math.min(100, Math.round((players.length/25)*100)) + '%';
+    capBar.style.width = Math.min(100, Math.round((players.length/30)*100)) + '%';
     joinBtn.disabled = locked || players.length >= MAX;
     nameInput.disabled = joinBtn.disabled; noteInput.disabled = joinBtn.disabled;
     lockNote.classList.toggle('hidden', !(locked || players.length >= MAX));
@@ -298,7 +298,7 @@
     const name = (nameInput.value || '').trim();
     if (!name) { alert('Enter your display name.'); return; }
     if (locked) { alert('Registration is locked.'); return; }
-    if (players.length >= MAX) { alert('Roster is full (25).'); return; }
+    if (players.length >= MAX) { alert('Roster is full (30).'); return; }
     if (players.some(x => x.name.trim().toLowerCase() === name.toLowerCase())) { alert('A player with that name already joined.'); return; }
     const p = { id: crypto.randomUUID(), name, role, team, note: (noteInput.value||'').trim(), joinedAt: Date.now() };
     players.push(p); nameInput.value=''; noteInput.value='';
